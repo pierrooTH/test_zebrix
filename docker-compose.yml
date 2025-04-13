@@ -1,0 +1,35 @@
+services:
+  test_zebrix:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+    environment:
+      - PORT=${PORT}
+      - NATIONAL_API_URL=${NATIONAL_API_URL}
+      - API_KEY=${API_KEY}
+      - RESTAURANT_USERNAME=${RESTAURANT_USERNAME}
+      - RESTAURANT_CODE=${RESTAURANT_CODE}
+      - RESTAURANT_PASSWORD=${RESTAURANT_PASSWORD}
+      - REDIS_URL=${REDIS_URL}
+      - CACHE_TTL=${CACHE_TTL}
+    depends_on:
+      - redis
+    restart: always
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  redis_data:
