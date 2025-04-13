@@ -96,9 +96,6 @@ const getFilteredProducts = async () => {
         const standardProducts = [];
 
         productsWithStock.forEach((product) => {
-            console.log("product >> ", product);
-            console.log("isFeaturedProduct >> ", isFeaturedProduct(product));
-            console.log("applyDiscount >> ", applyDiscount(product));
             if (isFeaturedProduct(product)) {
                 featuredProducts.push(applyDiscount(product));
             } else {
@@ -109,9 +106,6 @@ const getFilteredProducts = async () => {
         // Trie les produits par prix décroissant
         const sortByPriceDesc = (a, b) =>
             parseFloat(b.price) - parseFloat(a.price);
-
-        console.log("featuredProducts >> ", featuredProducts);
-        console.log("standardProducts >> ", standardProducts);
 
         return {
             featuredProducts: featuredProducts.sort(sortByPriceDesc),
